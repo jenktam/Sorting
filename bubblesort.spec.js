@@ -17,12 +17,6 @@ describe('Bubble Sort', function(){
     // expect( bubbleSort([1,2,3].length) ).toEqual( [1,2,3].length );
   });
 
-  // testArr = [78,24,94];
-
-  it('Should start at beginning of array and finish with last element', function(){
-    expect( testArr[0] ).toEqual( 6 );
-  });
-
   it('Sorts values from smallest to largest', function(){
     expect(bubbleSort(testArr)[0]).toEqual(1);
     expect(bubbleSort(testArr)[bubbleSort(testArr).length - 1]).toEqual(8);
