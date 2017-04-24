@@ -1,65 +1,53 @@
-/*
-even length
-odd length
-*/
-describe('Merge Sort', function(){
-  var testArr = [6,5,3,1,8];
-  var duplicates = [6,5,3,1,8,1,1];
-  var negativeNums = [6,5,3,1,8,-10,-5];
-  var fractions = [6,5,3,1,8,0.5,7.5, 7.6];
+'use strict';
+/* global mergeSort split merge */
 
-  it('Handles an empty array', function(){
-    expect( mergeSort([]) ).toEqual( [] );
+describe('Merge sort', function () {
+
+  describe('split', function () {
+
+    it('given one array, returns two arrays', function () {
+      expect(split([])).toEqual([[], []]);
+    });
+
+    it('splits array of even length', function () {
+      expect(split([5, 10])).toEqual([[5], [10]]);
+    });
+
+    it('splits array of odd length', function () {
+      expect(split([4, 10, 20])).toEqual([[4], [10, 20]]);
+    });
+
   });
 
-  it('Handles an array with only 1 element', function(){
-    expect( mergeSort([1]) ).toEqual( [1] );
+  describe('merge', function () {
+
+    it('given two arrays, returns an array', function () {
+      expect(merge([], [])).toEqual([]);
+    });
+
+    it('given two already sorted arrays of equal length, returns sorted result array', function () {
+      expect(merge([1, 5, 10], [2, 4, 11])).toEqual([1, 2, 4, 5, 10, 11]);
+      expect(merge([1, 9, 10], [2, 3, 8])).toEqual([1, 2, 3, 8, 9, 10]);
+    });
+
+    it('works for arrays of unequal length', function () {
+      expect(merge([1, 5, 10, 20, 21], [2, 4, 100])).toEqual([1, 2, 4, 5, 10, 20, 21, 100]);
+    });
+
   });
 
-  it('Merge Sort should be a function', function(){
-    expect(typeof mergeSort).toEqual('function');
+  describe('mergeSort', function () {
+
+    it('with 1 or fewer elements, returns sorted array', function () {
+      expect(mergeSort([])).toEqual([]);
+      expect(mergeSort([1000])).toEqual([1000]);
+    });
+
+    it('does the thing its supposed to do', function () {
+      const sorted = mergeSort([9, 1994, 18, 1, -90, 1234, 56]);
+      expect(sorted).toEqual([-90, 1, 9, 18, 56, 1234, 1994]);
+    });
+
   });
 
-  it('Input and output arrays should be equal length', function(){
-    expect( mergeSort(testArr).length ).toEqual( testArr.length );
-  });
-
-  it('Sorts values from smallest to largest', function(){
-    expect(mergeSort(testArr)[0]).toEqual(1);
-    expect(mergeSort(testArr)[mergeSort(testArr).length - 1]).toEqual(8);
-    expect(mergeSort(testArr)).toEqual([1,3,5,6,8]);
-  });
-
-  it('Numbers of the same value should be adjacent to each other', function(){
-    expect(mergeSort(duplicates)).toEqual([1,1,1,3,5,6,8]);
-  });
-
-  it('Should be able to sort negative or positive numbers', function(){
-    expect(mergeSort(negativeNums)).toEqual([-10,-5,1,3,5,6,8]);
-  });
-
-  it('Should be able to sort negative or positive numbers', function(){
-    expect(mergeSort(fractions)).toEqual([0.5,1,3,5,6,7.5,7.6,8]);
-  });
-
-  it('Should be able to handle even and odd lengthed arrays', function(){
-    expect(mergeSort(fractions)).toEqual([1,3,5,6,8]);
-  });
 });
-
-function test(x) {
-  console.log(x);
-}
-
-console.log(typeof test);
-
-
-/*
-base case: if array.length = 1; just return array. not sorting needed.
--data structure is a binary tree
-
-2 helper functions:
--1 to divide array into 2 arrays
--1 to merge sorted arrays back together
-
-*/
